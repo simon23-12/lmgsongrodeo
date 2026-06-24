@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LMG Music Rodeo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rye&family=Oswald:wght@400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-deep:  #09070400;
+            --bg-body:  #0b0906;
+            --bg-card:  #13100b;
+            --bg-card2: #1b1710;
+            --amber:    #c8870a;
+            --gold:     #e2bb3e;
+            --cream:    #f0e8d8;
+            --muted:    #8a7a5a;
+            --border:   #252010;
+            --shadow-g: rgba(200,135,10,0.35);
+        }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--cream);
+            font-family: 'Inter', sans-serif;
+            min-height: 100vh;
+        }
+
+        /* ── HEADER ─────────────────────────── */
+        .hdr {
+            background: linear-gradient(180deg, #1e1408 0%, #0c0906 100%);
+            border-bottom: 3px solid var(--amber);
+            padding: 26px 20px 20px;
+            text-align: center;
+            position: relative;
+        }
+        .hdr::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 55% at 50% 0%, rgba(200,135,10,0.13) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .hdr-badge {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.72rem;
+            letter-spacing: 0.5em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 8px;
+        }
+        h1 {
+            font-family: 'Rye', cursive;
+            font-size: clamp(2rem, 5.5vw, 3.8rem);
+            color: var(--gold);
+            text-shadow: 2px 2px 0 #4a2e00, 4px 4px 0 #2e1a00, 0 0 55px rgba(226,187,62,0.22);
+            line-height: 1.1;
+        }
+        h1 .s { color: var(--amber); font-size: 0.62em; vertical-align: middle; }
+        .tagline {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.85rem;
+            color: var(--muted);
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            margin-top: 8px;
+        }
+
+        /* ── RULES ──────────────────────────── */
+        .rules-wrap {
+            max-width: 940px;
+            margin: 20px auto 0;
+            padding: 0 16px;
+        }
+        .rules-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--amber);
+            border-radius: 10px;
+            padding: 14px 20px;
+        }
+        .rules-head {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.38em;
+            text-transform: uppercase;
+            color: var(--amber);
+            margin-bottom: 10px;
+        }
+        .rules-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+            gap: 5px 18px;
+        }
+        .rule {
+            display: flex;
+            gap: 7px;
+            font-size: 0.82rem;
+            color: #c0b090;
+            line-height: 1.5;
+        }
+        .rule .ri { color: var(--amber); flex-shrink: 0; margin-top: 3px; }
+        .rule strong { color: var(--gold); }
+
+        /* ── MAIN ───────────────────────────── */
+        .main {
+            max-width: 940px;
+            margin: 20px auto 44px;
+            padding: 0 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        /* Counter + dots */
+        .counter { text-align: center; }
+        .ctr-lbl {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            letter-spacing: 0.2em;
+            color: var(--gold);
+        }
+        .dots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 9px;
+            flex-wrap: wrap;
+        }
+        .dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            background: var(--border);
+            border: 1px solid #3a3020;
+            transition: all 0.25s;
+        }
+        .dot.done { background: #4a3820; border-color: var(--muted); }
+        .dot.on   { background: var(--gold); border-color: var(--gold); box-shadow: 0 0 8px var(--shadow-g); }
+
+        /* Video */
+        .video-card {
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            aspect-ratio: 16 / 9;
+        }
+        .video-card iframe { width: 100%; height: 100%; display: block; border: 0; }
+
+        /* Reveal button */
+        .reveal-btn {
+            width: 100%;
+            padding: 15px 24px;
+            background: linear-gradient(135deg, #162816 0%, #0e1c0e 100%);
+            border: 2px solid #3a703a;
+            border-radius: 10px;
+            color: #5cdb5c;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .reveal-btn:hover {
+            background: linear-gradient(135deg, #1e3c1e 0%, #142814 100%);
+            border-color: #5cac5c;
+            transform: translateY(-1px);
+            box-shadow: 0 4px 20px rgba(60,115,60,0.3);
+        }
+        .reveal-btn.open {
+            background: linear-gradient(135deg, #281c06 0%, #1c1208 100%);
+            border-color: var(--amber);
+            color: var(--gold);
+        }
+        .reveal-btn.open:hover {
+            background: linear-gradient(135deg, #342408 0%, #24180a 100%);
+        }
+
+        /* Answer card */
+        .answer-card {
+            background: var(--bg-card2);
+            border: 2px solid var(--amber);
+            border-radius: 10px;
+            padding: 18px 24px;
+            display: none;
+        }
+        .answer-card.show {
+            display: block;
+            animation: pop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        @keyframes pop {
+            from { opacity: 0; transform: scale(0.95) translateY(8px); }
+            to   { opacity: 1; transform: scale(1)    translateY(0);   }
+        }
+        .ans-row {
+            display: flex;
+            align-items: baseline;
+            gap: 14px;
+            padding: 8px 0;
+            border-bottom: 1px solid var(--border);
+        }
+        .ans-row:last-child { border-bottom: none; }
+        .ans-lbl {
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.74rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--amber);
+            min-width: 62px;
+        }
+        .ans-val  { font-size: 1.15rem; font-weight: 600; color: var(--cream); }
+        .ans-year {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: var(--gold);
+            text-shadow: 0 0 24px rgba(226,187,62,0.4);
+        }
+
+        /* Navigation */
+        .nav { display: flex; gap: 10px; }
+        .nav-btn {
+            flex: 1;
+            padding: 13px 18px;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            color: var(--muted);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-btn:hover:not(:disabled) {
+            background: #1c1810;
+            border-color: var(--muted);
+            color: var(--cream);
+            transform: translateY(-1px);
+        }
+        .nav-btn:disabled { opacity: 0.22; cursor: not-allowed; }
+        .nav-btn.nxt {
+            background: linear-gradient(135deg, #281c08 0%, #1a1006 100%);
+            border-color: var(--amber);
+            color: var(--gold);
+        }
+        .nav-btn.nxt:hover:not(:disabled) {
+            background: linear-gradient(135deg, #382808 0%, #241608 100%);
+            box-shadow: 0 4px 20px rgba(200,135,10,0.2);
+        }
+
+        /* Keyboard hint */
+        .kb-hint {
+            text-align: center;
+            font-size: 0.7rem;
+            color: #3e3422;
+            letter-spacing: 0.08em;
+        }
+        .kb-hint kbd {
+            background: #1c1810;
+            border: 1px solid #3a3020;
+            border-radius: 4px;
+            padding: 1px 6px;
+            font-size: 0.68rem;
+            color: #6a5a3a;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 14px;
+            color: #302818;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            border-top: 1px solid var(--border);
+        }
+    </style>
+</head>
+<body>
+
+<header class="hdr">
+    <div class="hdr-badge">♪ &nbsp; LMG · Englisch · Klasse 9 &nbsp; ♪</div>
+    <h1><span class="s">★</span> LMG Music Rodeo <span class="s">★</span></h1>
+    <div class="tagline">The Ultimate Music Guessing Challenge</div>
+</header>
+
+<div class="rules-wrap">
+    <div class="rules-box">
+        <div class="rules-head">📋 &nbsp; Rules</div>
+        <div class="rules-grid">
+            <div class="rule"><span class="ri">▸</span><span>Play in groups of <strong>4 (2 vs 2)</strong>. Write down your answers after each song.</span></div>
+            <div class="rule"><span class="ri">▸</span><span><strong>1 point</strong> for the correct <strong>Artist</strong> — <strong>1 point</strong> for the correct <strong>Title</strong>.</span></div>
+            <div class="rule"><span class="ri">▸</span><span><strong>Year:</strong> <strong>2 points</strong> for the exact year — <strong>1 point</strong> if your team's guess is closer.</span></div>
+            <div class="rule"><span class="ri">▸</span><span>Max <strong>4 pts</strong> per song · <strong>80 pts</strong> total across all 20 songs.</span></div>
+        </div>
+    </div>
+</div>
+
+<main class="main">
+
+    <div class="counter">
+        <div class="ctr-lbl" id="ctrLbl">♪ Song 1 / 20 ♪</div>
+        <div class="dots" id="dots"></div>
+    </div>
+
+    <div class="video-card">
+        <iframe id="ytPlayer"
+            src="about:blank"
+            allow="autoplay; encrypted-media; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    </div>
+
+    <button class="reveal-btn" id="revealBtn" onclick="toggleAnswer()">
+        <span id="revIco">🔒</span>
+        <span id="revTxt">Reveal Answer</span>
+    </button>
+
+    <div class="answer-card" id="ansCard">
+        <div class="ans-row">
+            <span class="ans-lbl">Artist</span>
+            <span class="ans-val" id="aArtist"></span>
+        </div>
+        <div class="ans-row">
+            <span class="ans-lbl">Title</span>
+            <span class="ans-val" id="aTitle"></span>
+        </div>
+        <div class="ans-row">
+            <span class="ans-lbl">Year</span>
+            <span class="ans-year" id="aYear"></span>
+        </div>
+    </div>
+
+    <div class="nav">
+        <button class="nav-btn" id="prevBtn" onclick="go(-1)">← Previous</button>
+        <button class="nav-btn nxt" id="nextBtn" onclick="go(1)">Next Song →</button>
+    </div>
+
+    <div class="kb-hint">
+        Keyboard: <kbd>→</kbd> / <kbd>Space</kbd> next &nbsp;·&nbsp; <kbd>←</kbd> previous &nbsp;·&nbsp; <kbd>Enter</kbd> reveal answer
+    </div>
+
+</main>
+
+<footer>LMG Music Rodeo · Englisch Klasse 9 · 20 Songs</footer>
+
+<script>
+// ─────────────────────────────────────────────────────────────────────────────
+// SONG LIST  –  20 songs (3 pre-2000 classics + 17 from 2005-2024)
+//
+// If a video shows "unavailable":
+//   1. Open YouTube, find the official music video
+//   2. Copy the ID from the URL:  youtube.com/watch?v=COPY_THIS_PART
+//   3. Paste it as the id value for that song below
+// ─────────────────────────────────────────────────────────────────────────────
+const songs = [
+    // shuffled order — pre-2000 classics at positions 3, 6, 10
+    { title: "Gangnam Style",                 artist: "PSY",                       year: 2012, id: "9bZkp7q19f0" },
+    { title: "Blinding Lights",               artist: "The Weeknd",                year: 2019, id: "4NRXx6U8ABQ" },
+    { title: "Smells Like Teen Spirit",       artist: "Nirvana",                   year: 1991, id: "hTWKbfoikeg" },
+    { title: "Uptown Funk",                   artist: "Mark Ronson ft. Bruno Mars", year: 2014, id: "OPf0YbXqDm0" },
+    { title: "As It Was",                     artist: "Harry Styles",              year: 2022, id: "H5v3kku4y6Q" },
+    { title: "Bohemian Rhapsody",             artist: "Queen",                     year: 1975, id: "fJ9rUzIMcZQ" },
+    { title: "Espresso",                      artist: "Sabrina Carpenter",         year: 2024, id: "eVli-tstM5E" },
+    { title: "Rolling in the Deep",           artist: "Adele",                     year: 2010, id: "rYEDA3JcQqw" },
+    { title: "Shape of You",                  artist: "Ed Sheeran",                year: 2017, id: "JGwWNGJdvx8" },
+    { title: "...Baby One More Time",         artist: "Britney Spears",            year: 1998, id: "C-u5WLJ9Yk4" },
+    { title: "Happy",                         artist: "Pharrell Williams",         year: 2013, id: "ZbZSe6N_BXs" },
+    { title: "Flowers",                       artist: "Miley Cyrus",               year: 2023, id: "G7KNmW9a75Y" },
+    { title: "Somebody That I Used to Know",  artist: "Gotye ft. Kimbra",          year: 2011, id: "8UVNT4wvIGY" },
+    { title: "bad guy",                       artist: "Billie Eilish",             year: 2019, id: "DyDfgMOUjCI" },
+    { title: "Umbrella",                      artist: "Rihanna",                   year: 2007, id: "CvBfHwUxHIk" },
+    { title: "Levitating",                    artist: "Dua Lipa",                  year: 2020, id: "TUVcZfQe-Kw" },
+    { title: "Sorry",                         artist: "Justin Bieber",             year: 2015, id: "fRh_vgS2dFE" },
+    { title: "drivers license",               artist: "Olivia Rodrigo",            year: 2021, id: "ZmDBbnmKpqQ" },
+    { title: "One Dance",                     artist: "Drake",                     year: 2016, id: "FLjS7DWBZRI" },
+    { title: "Poker Face",                    artist: "Lady Gaga",                 year: 2008, id: "bESGLojNYSo" },
+];
+
+let cur  = 0;
+let open = false;
+
+function init() {
+    const wrap = document.getElementById('dots');
+    songs.forEach((_, i) => {
+        const d = document.createElement('div');
+        d.className = 'dot';
+        d.id = 'dot' + i;
+        wrap.appendChild(d);
+    });
+    load(0);
+}
+
+function load(i) {
+    cur  = i;
+    open = false;
+    const s = songs[i];
+
+    document.getElementById('ctrLbl').textContent = `♪ Song ${i + 1} / ${songs.length} ♪`;
+
+    songs.forEach((_, j) => {
+        document.getElementById('dot' + j).className =
+            'dot' + (j < i ? ' done' : j === i ? ' on' : '');
+    });
+
+    document.getElementById('ytPlayer').src =
+        `https://www.youtube.com/embed/${s.id}?rel=0`;
+
+    document.getElementById('aArtist').textContent = s.artist;
+    document.getElementById('aTitle').textContent  = s.title;
+    document.getElementById('aYear').textContent   = s.year;
+
+    document.getElementById('ansCard').classList.remove('show');
+    const btn = document.getElementById('revealBtn');
+    btn.classList.remove('open');
+    document.getElementById('revIco').textContent = '🔒';
+    document.getElementById('revTxt').textContent = 'Reveal Answer';
+
+    document.getElementById('prevBtn').disabled = i === 0;
+    document.getElementById('nextBtn').disabled = i === songs.length - 1;
+    document.getElementById('nextBtn').textContent =
+        i === songs.length - 1 ? '🏆 Final Song!' : 'Next Song →';
+}
+
+function toggleAnswer() {
+    open = !open;
+    document.getElementById('ansCard').classList.toggle('show', open);
+    const btn = document.getElementById('revealBtn');
+    btn.classList.toggle('open', open);
+    document.getElementById('revIco').textContent = open ? '🔓' : '🔒';
+    document.getElementById('revTxt').textContent = open ? 'Hide Answer' : 'Reveal Answer';
+}
+
+function go(d) {
+    const n = cur + d;
+    if (n >= 0 && n < songs.length) {
+        load(n);
+        scrollTo({ top: 0, behavior: 'smooth' });
+    }
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === ' ') { e.preventDefault(); go(1); }
+    if (e.key === 'ArrowLeft')                   { e.preventDefault(); go(-1); }
+    if (e.key === 'Enter')                       { e.preventDefault(); toggleAnswer(); }
+});
+
+init();
+</script>
+</body>
+</html>
