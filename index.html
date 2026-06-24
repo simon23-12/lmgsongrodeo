@@ -301,7 +301,7 @@
             <div class="rule"><span class="ri">▸</span><span>Play in groups of <strong>4 (2 vs 2)</strong>. Write down your answers after each song.</span></div>
             <div class="rule"><span class="ri">▸</span><span><strong>1 point</strong> for the correct <strong>Artist</strong> — <strong>1 point</strong> for the correct <strong>Title</strong>.</span></div>
             <div class="rule"><span class="ri">▸</span><span><strong>Year:</strong> <strong>2 points</strong> for the exact year — <strong>1 point</strong> if your team's guess is closer.</span></div>
-            <div class="rule"><span class="ri">▸</span><span>Max <strong>4 pts</strong> per song · <strong>80 pts</strong> total across all 20 songs.</span></div>
+            <div class="rule"><span class="ri">▸</span><span>Max <strong>4 pts</strong> per song · <strong>120 pts</strong> total across all 30 songs.</span></div>
         </div>
     </div>
 </div>
@@ -352,11 +352,11 @@
 
 </main>
 
-<footer>LMG Music Rodeo · Englisch Klasse 9 · 20 Songs</footer>
+<footer>LMG Music Rodeo · Englisch Klasse 9 · 30 Songs</footer>
 
 <script>
 // ─────────────────────────────────────────────────────────────────────────────
-// SONG LIST  –  20 songs (3 pre-2000 classics + 17 from 2005-2024)
+// SONG LIST  –  30 songs (3 pre-2000 classics + 27 from 2003-2024)
 //
 // If a video shows "unavailable":
 //   1. Open YouTube, find the official music video
@@ -385,6 +385,17 @@ const songs = [
     { title: "drivers license",               artist: "Olivia Rodrigo",            year: 2021, id: "ZmDBbnmKpqQ" },
     { title: "One Dance",                     artist: "Drake",                     year: 2016, id: "FLjS7DWBZRI" },
     { title: "Poker Face",                    artist: "Lady Gaga",                 year: 2008, id: "bESGLojNYSo" },
+    // 10 additional songs
+    { title: "Crazy in Love",                 artist: "Beyoncé ft. Jay-Z",         year: 2003, id: "ViwtNLUqkMY" },
+    { title: "Mr. Brightside",                artist: "The Killers",               year: 2003, id: "gGdGFtwCNBE" },
+    { title: "Viva la Vida",                  artist: "Coldplay",                  year: 2008, id: "dvgZkm1xWPE" },
+    { title: "Royals",                        artist: "Lorde",                     year: 2013, id: "nlcIKh6sBtc" },
+    { title: "Counting Stars",                artist: "OneRepublic",               year: 2013, id: "hT_nvWreIhg" },
+    { title: "Shake It Off",                  artist: "Taylor Swift",              year: 2014, id: "nfWlot6h_JM" },
+    { title: "Despacito",                     artist: "Luis Fonsi ft. Daddy Yankee", year: 2017, id: "ktvTqknDobU" },
+    { title: "Old Town Road",                 artist: "Lil Nas X ft. Billy Ray Cyrus", year: 2019, id: "r7qovpFAGrQ" },
+    { title: "Heat Waves",                    artist: "Glass Animals",             year: 2020, id: "mRD0-GxqHVo" },
+    { title: "Die With a Smile",              artist: "Lady Gaga & Bruno Mars",    year: 2024, id: "kPa7bsKwL-c" },
 ];
 
 let cur  = 0;
